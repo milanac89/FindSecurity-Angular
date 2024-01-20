@@ -1,0 +1,31 @@
+{
+  "users": [
+    {
+      "id": 5,
+      "email": "wfm@mail.ru",
+      "password": "12345678",
+      "confirmPassword": "12345678"
+    }
+  ],
+  "information": [
+    {
+      "name": "zxcxzc",
+      "surname": "asdasd",
+      "fatherName": "qweqew",
+      "sex": "zasdf",
+      "birthDate": "aqewqwe",
+      "regionName": "sdfsd",
+      "workRegionName": "qweqe",
+      "phone": "77-77-77",
+      "mail": "qeqew",
+      "driverLicense": false,
+      "specialty": "sdff",
+      "experienceYears": "qweqwe",
+      "employmentType": "sdff",
+      "workSchedule": "qweqew",
+      "pay": "еще одно изменение",
+      "comment": "изменение",
+      "id": 5
+    }
+  ]
+}
