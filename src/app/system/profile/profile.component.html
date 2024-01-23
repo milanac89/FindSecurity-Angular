@@ -1,0 +1,62 @@
+<div *ngIf="isLoaded">
+  <h3>{{information.surname}} {{information.name}} {{information.fatherName}}</h3>
+  <a class="blue edit-link" [routerLink]="['/system', 'fill']">Редактировать данные</a>
+  <div class="profile-block">
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Пол</div>
+      <div class="text-size-big">{{information.sex}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Регион проживания</div>
+      <div class="text-size-big">{{information.regionName}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Желаемый регион работы</div>
+      <div class="text-size-big">{{information.workRegionName}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Дата рождения</div>
+      <div class="text-size-big">{{information.birthDate}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Профессиональная область</div>
+      <div class="text-size-big">{{information.specialty}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Телефон</div>
+      <div class="text-size-big">{{information.phone}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Электронная почта</div>
+      <div class="text-size-big">{{information.mail}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Водительские права</div>
+      <div class="text-size-big" *ngIf="information.driverLicense===true">Да</div>
+      <div class="text-size-big" *ngIf="information.driverLicense===false">Нет</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Опыт работы в сфере (лет)</div>
+      <div class="text-size-big">{{information.experienceYears}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Тип занятости</div>
+      <div class="text-size-big">{{information.employmentType}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Желаемый график</div>
+      <div class="text-size-big">{{information.workSchedule}}</div>
+    </div>
+    <div class="profile-block-item">
+      <div class="text-size-small text-gray">Желаемый уровень зарплаты</div>
+      <div class="text-size-big">{{information.pay}}</div>
+    </div>
+  </div>
+  <div class="profile-block-text">
+    <div class="text-size-small text-gray">Напишите немного о себе</div>
+    <div>
+      {{information.comment}}
+    </div>
+  </div>
+</div>
+

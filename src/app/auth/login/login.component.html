@@ -1,1 +1,56 @@
-<p>login works!</p>
+<div>
+  <div
+    @fade
+    class="form-help-text"
+    *ngIf="message"
+  >
+    {{message}}
+  </div>
+  <div
+    class="form-help-text"
+    *ngIf="f['email'].invalid && f['email'].touched"
+  >
+    <span *ngIf="f['email'].errors?.['required']">Поле Email не должен быть пустым</span>
+    <span *ngIf="f['email'].errors?.['email']">Введите корректный Email</span>
+  </div>
+  <div
+    class="form-help-text"
+    *ngIf="f['password'].invalid && f['password'].touched"
+  >
+    <span *ngIf="f['password']['errors']">Поле Пароль не должен быть пустым</span>
+  </div>
+  <div class="auth-content-wrap">
+    <a [routerLink]="'/'" class="modal-close"><img src="../../assets/img/close.svg"></a>
+    <h3 class="text-center">Войти</h3>
+    <p class="text-center">Вход для зарегистрированных пользователей</p>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <input
+          [ngClass]="{'error': f['email'].invalid && f['email'].touched}"
+          type="text"
+          class="form-control"
+          id="email"
+          placeholder="Электронная почта"
+          formControlName="email"
+        >
+      </div>
+      <div class="form-group">
+        <input
+          [ngClass]="{'error': f['password'].invalid && f['password'].touched}"
+          type="password"
+          class="form-control"
+          id="password"
+          placeholder="Пароль"
+          formControlName="password"
+        >
+      </div>
+      <div class="text-center text-size-small">Не можете войти? <a class="blue" [routerLink]="'/password'">Восстановить пароль</a></div>
+      <div class="form-group">
+        <button [disabled]="form.invalid" type="submit" class="btn-blue btn-form">Войти</button>
+      </div>
+      <div class="form-group reg-link">
+        <a [routerLink]="'/registration'">Зарегистрироваться!</a>
+      </div>
+    </form>
+  </div>
+</div>
