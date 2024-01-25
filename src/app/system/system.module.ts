@@ -6,6 +6,14 @@ import { ProfileComponent } from './profile/profile.component';
 import { FillProfileComponent } from './fill-profile/fill-profile.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import {SystemWrapComponent} from "./system.wrap";
+import {AddFormComponent} from "./add-form/add-form.component";
+import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatSelectModule} from "@angular/material/select";
+
 
 
 @NgModule({
@@ -13,12 +21,21 @@ import {SystemWrapComponent} from "./system.wrap";
     ProfileComponent,
     FillProfileComponent,
     SidebarComponent,
-    SystemWrapComponent
+    SystemWrapComponent,
+    AddFormComponent
   ],
   imports: [
     CommonModule,
     SystemRoutingModule,
-    SharedModule
-  ]
+    SharedModule,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    MatFormFieldModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
+    MatSelectModule
+  ],
+  providers: [provideNgxMask()]
 })
 export class SystemModule { }

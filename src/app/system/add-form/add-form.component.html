@@ -1,0 +1,190 @@
+<h1>Заполните анкету</h1>
+<div>Необходимо заполнить все поля</div>
+<div [ngSwitch]="current" class="main-form">
+  <!--form1-->
+  <form *ngSwitchCase="1" [formGroup]="firstFormGroup">
+    <div>
+      <mat-form-field>
+        <mat-label>Фамилия</mat-label>
+        <input
+          type="text"
+          matInput
+          id="surname"
+          formControlName="surname"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Имя</mat-label>
+        <input
+          type="text"
+          matInput
+          id="name"
+          formControlName="name"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Отчество</mat-label>
+        <input
+          type="text"
+          matInput
+          id="fatherName"
+          formControlName="fatherName"
+        >
+      </mat-form-field>
+    </div>
+    <div class="radio-block">
+      <label id="example-radio-group-label">Укажите ваш пол</label>
+      <mat-radio-group formControlName="sex"
+        aria-labelledby="example-radio-group-label"
+       >
+        @for (i of sex; track i) {
+        <mat-radio-button class="example-radio-button" [value]="i.value">{{i.valueText}}</mat-radio-button>
+        }
+      </mat-radio-group>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Дата рождения</mat-label>
+        <input
+          type="text"
+          matInput
+          id="birthDate"
+          formControlName="birthDate"
+          mask="00/00/0000"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Регион проживания</mat-label>
+        <input
+          type="text"
+          matInput
+          id="regionName"
+          formControlName="regionName"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Желаемый регион работы</mat-label>
+        <input
+          type="text"
+          matInput
+          id="workRegionName"
+          formControlName="workRegionName"
+        >
+      </mat-form-field>
+    </div>
+  </form>
+  <!--form2-->
+  <form *ngSwitchCase="2" [formGroup]="secondFormGroup">
+    <div>
+      <mat-form-field>
+        <mat-label>Телефон</mat-label>
+        <input
+          type="text"
+          matInput
+          id="phone"
+          formControlName="phone"
+          mask="0*"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Электронная почта</mat-label>
+        <input
+          type="text"
+          matInput
+          id="mail"
+          formControlName="mail"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+        <mat-checkbox labelPosition="before" class="example-margin" formControlName="driverLicense">У вас есть водительские права?</mat-checkbox>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Профессиональная область</mat-label>
+        <input
+          type="text"
+          matInput
+          id="specialty"
+          formControlName="specialty"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Опыт работы в сфере (лет)</mat-label>
+        <input
+          type="text"
+          matInput
+          id="experienceYears"
+          formControlName="experienceYears"
+          mask="0*"
+        >
+      </mat-form-field>
+    </div>
+  </form>
+  <!--form3-->
+  <form *ngSwitchCase="3" [formGroup]="thirdFormGroup">
+    <div>
+      <mat-form-field>
+        <mat-label>Тип занятости</mat-label>
+        <select matNativeControl formControlName="employmentType">
+          <option value="fullTime">Полная занятость</option>
+          <option value="partTime">Частичная занятость</option>
+          <option value="volunteering">Волонтерство</option>
+          <option value="internship">Стажировка</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Желаемый график</mat-label>
+        <input
+          type="text"
+          matInput
+          id="workSchedule"
+          formControlName="workSchedule"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field>
+        <mat-label>Желаемый уровень зарплаты</mat-label>
+        <input
+          type="text"
+          matInput
+          id="pay"
+          formControlName="pay"
+          mask="0*"
+        >
+      </mat-form-field>
+    </div>
+    <div>
+        <textarea
+          placeholder="Напишите немного о себе*"
+          id="comment"
+          formControlName="comment"
+        ></textarea>
+    </div>
+  </form>
+</div>
+<button *ngIf="current != 1" (click)="switchForm(-1)" class="btn-prev"><img src="../../../assets/img/prev.svg" alt=""></button>
+<button [disabled]="nextDisabled()" *ngIf="current != 3" class="btn-blue-next btn-blue" (click)="switchForm(1)">Продолжить</button>
+<button *ngIf="current == 3"  type="submit" class="btn-blue btn-form" (click)="save()" [disabled]="thirdValidForm">Отправить</button>
+<ul class="bullet-form">
+  <li [ngClass]="{'active-form': current == 1}"></li>
+  <li [ngClass]="{'active-form': current == 2}"></li>
+  <li [ngClass]="{'active-form': current == 3}"></li>
+</ul>
+
+
