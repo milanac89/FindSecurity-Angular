@@ -12,9 +12,40 @@ export class ProfileComponent {
   information: any;
   user: User;
 
-
-
+  getSex(){
+    if(this.information.sex == 'men'){
+      return 'Мужской'
+    } else return 'Женский'
+  }
+  getEmploymentType(){
+    switch(this.information.employmentType) {
+      case 'fullTime':
+        return 'Полная занятость'
+        break;
+      case 'partTime':
+        return 'Частичная занятость'
+        break;
+      case 'volunteering':
+        return 'Волонтерство'
+        break;
+      default:
+        return 'Стажировка'
+    }
+  }
   isLoaded = false;
+
+
+  // translateDate(){
+  //   let day = this.information.birthDate.slice(0,2)
+  //   let month = this.information.birthDate.slice(2,4)
+  //   let year = this.information.birthDate.slice(4)
+  //   let birth = day+'/'+month+'/'+year
+  //   return birth
+  // }
+  translatePay(){
+    let pay = Number(this.information.pay)
+    return pay.toLocaleString()
+  }
 
   constructor(private informationService: InformationService) { }
 

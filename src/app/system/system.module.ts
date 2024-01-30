@@ -3,7 +3,6 @@ import {CommonModule} from "@angular/common";
 import {SharedModule} from "../shared/shared.module";
 import {SystemRoutingModule} from "./system.routing.module";
 import { ProfileComponent } from './profile/profile.component';
-import { FillProfileComponent } from './fill-profile/fill-profile.component';
 import { SidebarComponent } from './shared/components/sidebar/sidebar.component';
 import {SystemWrapComponent} from "./system.wrap";
 import {AddFormComponent} from "./add-form/add-form.component";
@@ -13,16 +12,17 @@ import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatSelectModule} from "@angular/material/select";
+import {LoaderComponent} from "./shared/components/loader/loader.component";
 
 
 
 @NgModule({
   declarations: [
     ProfileComponent,
-    FillProfileComponent,
     SidebarComponent,
     SystemWrapComponent,
-    AddFormComponent
+    AddFormComponent,
+    LoaderComponent
   ],
   imports: [
     CommonModule,

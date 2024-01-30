@@ -2,13 +2,12 @@ import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {SystemWrapComponent} from "./system.wrap";
 import {ProfileComponent} from "./profile/profile.component";
-import {FillProfileComponent} from "./fill-profile/fill-profile.component";
 import {AddFormComponent} from "./add-form/add-form.component";
+import {AuthGuardService} from "../shared/services/auth.guard.service";
 
 
 const routes: Routes = [
-  {path: 'system', component: SystemWrapComponent, children: [
-      {path: 'fill', component: FillProfileComponent},
+  {path: '', component: SystemWrapComponent, canLoad: [AuthGuardService], children: [
       {path: 'profile', component: ProfileComponent},
       {path: 'form', component: AddFormComponent}
     ]},
