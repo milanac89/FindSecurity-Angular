@@ -2,8 +2,8 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UsersService} from '../../shared/services/users.service';
 import {User} from '../../shared/models/user.model';
-//import {AuthService} from '../../shared/services/auth.service';
-import {Router} from '@angular/router';
+import {AuthService} from '../../shared/services/auth.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 //import {InformationService} from '../../shared/services/information.service';
@@ -22,14 +22,25 @@ export class LoginComponent implements OnInit{
   @HostBinding('@fade') a = true;
 
   form: FormGroup;
-  message = '';
+  message: any;
 
   constructor(private usersService: UsersService,
-              //private authService: AuthService,
+              private authService: AuthService,
               private informationService: InformationService,
+              private route: ActivatedRoute,
               private router: Router){}
 
   ngOnInit(){
+
+    if(this.route.snapshot.queryParams['accessDenied']){
+      this.showMessage('Войдите в систему', 'info')
+    }
+
+    if(this.route.snapshot.queryParams['message']){
+      this.showMessage('Теперь вы можете войти в систему', 'info')
+    }
+
+
     this.form = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
@@ -41,10 +52,10 @@ export class LoginComponent implements OnInit{
     return this.form.controls;
   }
 
-  private showMessage(text: string){
-    this.message = text;
+  private showMessage(text: string, type: string){
+    this.message = {text, type};
     window.setTimeout(() => {
-      this.message = '';
+      this.message = {};
     }, 5000);
   }
 
@@ -57,21 +68,21 @@ export class LoginComponent implements OnInit{
           if (user.password === formData.password){
             this.message = '';
             window.localStorage.setItem('user', JSON.stringify(user));
-            //this.authService.login();
+            this.authService.login();
             this.informationService.getInformationById(user.id)
               .subscribe((information: Information | undefined) => {
                 if(information){
                   this.router.navigate(['/system', 'profile']);
 
                 } else {
-                  this.router.navigate(['/system', 'fill']);
+                  this.router.navigate(['/system', 'form']);
                 }
               });
           } else {
-            this.showMessage('Пароль неверный');
+            this.showMessage('Пароль неверный', 'danger');
           }
         } else {
-          this.showMessage('Такого пользователя не существует');
+          this.showMessage('Такого пользователя не существует', 'danger');
         }
       });
   }

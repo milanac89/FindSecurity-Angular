@@ -1,20 +1,20 @@
 <div>
   <div
     @fade
-    class="form-help-text"
     *ngIf="message"
+    class="form-help-text bc-{{message.type}}"
   >
-    {{message}}
+    {{message.text}}
   </div>
   <div
-    class="form-help-text"
+    class="form-help-text bc-danger"
     *ngIf="f['email'].invalid && f['email'].touched"
   >
     <span *ngIf="f['email'].errors?.['required']">Поле Email не должен быть пустым</span>
     <span *ngIf="f['email'].errors?.['email']">Введите корректный Email</span>
   </div>
   <div
-    class="form-help-text"
+    class="form-help-text bc-danger"
     *ngIf="f['password'].invalid && f['password'].touched"
   >
     <span *ngIf="f['password']['errors']">Поле Пароль не должен быть пустым</span>

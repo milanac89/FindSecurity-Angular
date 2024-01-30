@@ -1,7 +1,7 @@
 <div>
 
   <div
-    class="form-help-text"
+    class="form-help-text bc-danger"
     *ngIf="f['email'].invalid && f['email'].touched"
   >
     <span *ngIf="f['email'].errors?.['required']">Поле Email не должен быть пустым</span>
@@ -10,14 +10,14 @@
   </div>
 
   <div
-    class="form-help-text"
+    class="form-help-text bc-danger"
     *ngIf="f['password'].invalid && f['password'].touched"
   >
     <span *ngIf="f['password'].errors?.['required']">Поле Пароль не должен быть пустым</span>
   </div>
 
 
-   <div *ngIf="f['confirmPass'].invalid && f['confirmPass'].touched" class="form-help-text">
+   <div *ngIf="f['confirmPass'].invalid && f['confirmPass'].touched" class="form-help-text bc-danger">
      <span *ngIf="f['confirmPass'].errors?.['required']">Поле Повторите пароль не должно быть пустым.</span>
      <span *ngIf="f['confirmPass'].errors?.['invalid']">Пароли не совпадают.</span>
    </div>

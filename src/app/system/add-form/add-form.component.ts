@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {Information} from "../../shared/models/information.model";
 import {User} from "../../shared/models/user.model";
+import {InformationService} from "../../shared/services/information.service";
+import {ActivatedRoute, Router} from "@angular/router";
 
 
 @Component({
@@ -21,9 +23,15 @@ export class AddFormComponent implements OnInit{
     ];
   checkSex: string;
   current: number = 1;
+  user: User;
+  isLoaded = true;
 
 
-  constructor(private _formBuilder: FormBuilder){}
+
+  constructor(private _formBuilder: FormBuilder,
+              private router: Router,
+              private route: ActivatedRoute,
+              private informationService: InformationService,){}
 
 
 
@@ -32,8 +40,36 @@ export class AddFormComponent implements OnInit{
   }
 
   ngOnInit(){
-
-
+    this.user = JSON.parse(window.localStorage.getItem('user')!);
+    if(this.route.snapshot.queryParams['edit']) {
+      this.isLoaded = false;
+      this.informationService.getInformationById(this.user.id)
+        .subscribe((information: Information | undefined) => {
+            this.isLoaded = true;
+            this.firstFormGroup.setValue({
+              surname: information!.surname,
+              name: information!.name,
+              fatherName: information!.fatherName,
+              sex: information!.sex,
+              birthDate: information!.birthDate,
+              regionName: information!.regionName,
+              workRegionName: information!.workRegionName
+            });
+            this.secondFormGroup.setValue({
+              phone: information!.phone,
+              mail: information!.mail,
+              driverLicense: information!.driverLicense,
+              specialty: information!.specialty,
+              experienceYears: information!.experienceYears
+            });
+            this.thirdFormGroup.setValue({
+              employmentType: information!.employmentType,
+              workSchedule: information!.workSchedule,
+              pay: information!.pay,
+              comment: information!.comment
+            });
+        });
+    }
     this.firstFormGroup = this._formBuilder.group({
       surname: ['', Validators.required],
       name: ['', Validators.required],
@@ -57,8 +93,8 @@ export class AddFormComponent implements OnInit{
       comment: ['', Validators.required]
     });
 
-
   }
+
 
   get thirdValidForm() {
     return this.thirdFormGroup.invalid;
@@ -75,7 +111,26 @@ export class AddFormComponent implements OnInit{
 
 
   save(){
-    console.log(this.firstFormGroup.value, this.secondFormGroup.value, this.thirdFormGroup.value)
+    const id = this.user.id
+    const {name, surname, fatherName, sex, birthDate, regionName, workRegionName} = this.firstFormGroup.value;
+    const {phone, mail, driverLicense, specialty, experienceYears} = this.secondFormGroup.value;
+    const {employmentType, workSchedule, pay, comment} = this.thirdFormGroup.value;
+    const information = new Information(name, surname, fatherName, sex, birthDate, regionName, workRegionName, phone, mail, driverLicense, specialty, experienceYears, employmentType, workSchedule, pay, comment, id)
+
+    if (this.route.snapshot.queryParams['edit']){
+      this.informationService.updateInformation(information)
+        .subscribe(() => {
+          this.router.navigate(['/system', 'profile']);
+        });
+    } else {
+      this.informationService.createNewInformationUser(information)
+        .subscribe(() => {
+          this.router.navigate(['/system', 'profile']);
+        });
+    }
+
+
+
   }
 
 
