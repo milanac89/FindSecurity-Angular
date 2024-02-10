@@ -2,8 +2,8 @@ Installation
 
 Clone repo form Gitlab
 
-Run npm i
+npm i
 
-Run npm dev
+npm run dev
 
 Open http://localhost:4200 in browser
