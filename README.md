@@ -1,6 +1,6 @@
 Installation
 
-Clone repo form Gitlab
+Clone repo from Githab
 
 npm i
 
